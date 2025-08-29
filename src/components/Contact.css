@@ -1,0 +1,101 @@
+:root {
+  --teal-bg: #12c4c4;             /* page teal */
+  --panel-teal: #12c4c4;          /* postcard teal */
+  --white: #ffffff;
+  --ink: #1a1a1a;
+  --ghost: rgba(255,255,255,0.25);
+  --ghost-strong: rgba(255,255,255,0.6);
+  --line: rgba(255,255,255,0.4);
+}
+
+/* Full-height like other slides (if not already) */
+.contact-section {
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 40px 20px;
+  /* keep your background-color here; the pan overlay you added will still work */
+}
+
+.postcard {
+  width: min(900px, 92vw);
+  background-color: #111827;
+  color: #e5e7eb;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.35);
+}
+
+/* Inner wrapper that scales in */
+.form-shell {
+  transform-origin: center;
+}
+
+/* ---------------- Animista: scale-in-center ---------------- */
+.scale-in-center {
+  -webkit-animation: scale-in-center 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+          animation: scale-in-center 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@-webkit-keyframes scale-in-center {
+  0%   { -webkit-transform: scale(0); transform: scale(0); opacity: 0; }
+  100% { -webkit-transform: scale(1); transform: scale(1); opacity: 1; }
+}
+@keyframes scale-in-center {
+  0%   { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Basic form styling (keep or adapt to your theme) */
+.contact-title { margin: 0 0 12px; font-size: 1.6rem; font-weight: 800; }
+
+.contact-form {
+  display: grid;
+  gap: 14px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+  text-align: left;
+}
+
+.field span { font-size: 0.95rem; opacity: 0.9; }
+
+input, textarea {
+  width: 100%;
+  padding: 12px 0px;
+  border-radius: 10px;
+  border: 1px solid #334155;
+  background: #0b1220;
+  color: #e5e7eb;
+  outline: none;
+}
+
+input:focus, textarea:focus {
+  border-color: #7dd3fc;
+  box-shadow: 0 0 0 3px rgba(125, 211, 252, 0.2);
+}
+
+.send-btn {
+  margin-top: 6px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid #334155;
+  background: #0b1220;
+  color: #e5e7eb;
+  cursor: pointer;
+}
+.send-btn:hover { background: #922dfe; }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .scale-in-center { animation: none !important; }
+}
+
+/* button + statuses */
+.send-btn.is-sending { opacity: 0.7; cursor: not-allowed; }
+.status { margin-top: 10px; font-weight: 600; }
+.status.success { color: #c8ffd0; }
+.status.error   { color: #ffe0e0; }
+.char-count { margin-top: 4px; font-size: 12px; opacity: 0.75; }

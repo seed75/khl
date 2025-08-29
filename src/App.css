@@ -1,3 +1,22 @@
+:root {
+  --animista-gradient: linear-gradient(90deg, #ff1b6b 0%, #45caff 100%);
+
+}
+
+/* Reusable animated gradient text */
+.gradient-text {
+  display: inline-block;                 /* needed for background-position animation */
+  background-image: var(--animista-gradient);
+  background-size: 300% 100%;
+  background-position: 100% 50%;
+  -webkit-background-clip: text;         /* Safari/Chrome */
+          background-clip: text;
+  color: transparent;                    /* Firefox/standard */
+  -webkit-text-fill-color: transparent;  /* Safari/Chrome */
+  animation: bg-pan-left 6s linear infinite;
+  will-change: background-position;
+}
+
 .App {
   text-align: center;
 }
@@ -36,3 +55,82 @@
     transform: rotate(360deg);
   }
 }
+
+.scroll-container {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+.scroll-container > div {
+  height: 100vh;
+  scroll-snap-align: start;
+}
+
+/* App.css */
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #f7c600; /* or your hero background color */
+}
+
+.App {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+.hero-slide,
+.slide-two,
+.slide-three,
+.slide-four,
+.contact-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-slide::before,
+.slide-two::before,
+.slide-three::before,
+.slide-four::before,
+.contact-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+
+  /* ⬇️ use the Animista-style gradient variable */
+  background-image: var(--animista-gradient);
+  background-size: 300% 100%;
+  background-position: 100% 50%;
+
+  /* continuous pan */
+  animation: bg-pan-left 8s linear infinite;
+
+  /* Optional: makes the sheen sit “into” bright bases like your yellow hero */
+  /* mix-blend-mode: overlay; */
+}
+
+/* Keyframes (unchanged) */
+@keyframes bg-pan-left {
+  0%   { background-position: 100% 50%; }
+  100% { background-position:   0% 50%; }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .gradient-text { animation: none !important; }
+}
+
+.hero-content,
+.slide-two-content,
+.slide-three-content,
+.slide-four-content,
+.postcard {
+  position: relative;
+  z-index: 1;
+}
+

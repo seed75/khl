@@ -1,0 +1,106 @@
+.slide-two {
+  height: 100vh;                  /* Full-screen section */
+  background-color: #333333;      /* Dark background like in Adam's 2nd slide */
+  color: white;                   /* White text */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.slide-two-content h2 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  font-family: 'Archivo Black', sans-serif;
+}
+
+.slide-two-content p {
+  font-size: 1.2rem;
+  max-width: 700px;
+  margin: 0 auto;
+  opacity: 0.8;
+  line-height: 1.6;
+}
+
+/* Default desktop view */
+.hero-slide {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+.hero-text h1 {
+  font-size: 4rem;
+}
+
+.hero-text p {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
+
+/* Tablet */
+@media screen and (max-width: 1024px) {
+  .hero-text h1 {
+    font-size: 3rem;
+  }
+
+  .hero-text p {
+    font-size: 1.2rem;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 768px) {
+  .hero-slide {
+    flex-direction: column;
+    padding: 1.5rem;
+  }
+
+  .hero-text h1 {
+    font-size: 2.2rem;
+  }
+
+  .hero-text p {
+    font-size: 1rem;
+  }
+}
+
+.about-title {
+  letter-spacing: 0.08em;
+}
+
+.about-typed {
+  font-size: clamp(18px, 2.4vw, 28px);
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 0.25rem 0 1rem;
+}
+
+.about-body {
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: clamp(16px, 2vw, 20px);
+  opacity: 0.9;
+  }
+
+
+  .skill-btn {
+  margin-top: 2rem;           /* Space above the button */
+  padding: 0.75rem 2rem;      /* Vertical and horizontal padding inside the button */
+  font-size: 1rem;            /* Button font size */
+  background: transparent;    /* No background by default */
+  border: 2px solid white;    /* White border */
+  color: white;               /* White text */
+  cursor: pointer;            /* Cursor becomes a hand on hover */
+  transition: all 0.3s ease;  /* Smooth transition for hover effect */
+}
+
+/* ✅ 8. Hover effect for the button */
+.skill-btn:hover {
+  background: white;       /* Fill background white */
+  color: #F5B700;          /* Text becomes yellow to contrast */
+}

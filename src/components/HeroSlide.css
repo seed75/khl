@@ -1,0 +1,104 @@
+/* ✅ 1. Load custom font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+
+/* ✅ 2. Main wrapper for the full-screen hero section */
+.hero-slide {
+  height: 100vh;               /* vh = viewport height. This makes it take the full screen height */
+  background-color: #F5B700;   /* Bright yellow background like Adam’s hero slide */
+  display: flex;               /* Use Flexbox to center content */
+  justify-content: center;    /* Center horizontally */
+  align-items: center;        /* Center vertically */
+  text-align: center;         /* Align text in the middle */
+}
+
+/* ✅ 3. Inner content container */
+.hero-content {
+  color: white;                               /* All text inside will be white */
+  font-family: 'Archivo Black', sans-serif;   /* Apply the imported bold font */
+  padding: 0 20px;                            /* Some horizontal padding for mobile spacing */
+}
+
+/* ✅ 4. Main heading style */
+.hero-content h1 {
+  font-size: 4rem;    /* Very large text for main intro */
+  line-height: 1.2;   /* Slight spacing between lines */
+}
+
+/* ✅ 5. Subheading (paragraph) */
+.hero-content p {
+  font-size: 1.25rem;   /* Slightly larger than body text */
+  margin-top: 1rem;     /* Space above paragraph */
+  opacity: 0.9;         /* Slight transparency to soften the look */
+}
+
+/* ✅ 6. Highlighted name (your name) in a custom style */
+.highlight-name {
+  color: white;                              /* Keep it white to match the design */
+  background: linear-gradient(90deg, white, white);
+  -webkit-background-clip: text;             /* Only show gradient where the text is */
+  -webkit-text-fill-color: transparent;      /* Hide original color and show the background instead */
+}
+
+/* ✅ 7. Learn More Button */
+.learn-more-btn {
+  margin-top: 2rem;           /* Space above the button */
+  padding: 0.75rem 2rem;      /* Vertical and horizontal padding inside the button */
+  font-size: 1rem;            /* Button font size */
+  background: transparent;    /* No background by default */
+  border: 2px solid white;    /* White border */
+  color: white;               /* White text */
+  cursor: pointer;            /* Cursor becomes a hand on hover */
+  transition: all 0.3s ease;  /* Smooth transition for hover effect */
+}
+
+/* ✅ 8. Hover effect for the button */
+.learn-more-btn:hover {
+  background: white;       /* Fill background white */
+  color: #F5B700;          /* Text becomes yellow to contrast */
+}
+
+/* Default desktop view */
+.hero-slide {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+.hero-text h1 {
+  font-size: 4rem;
+}
+
+.hero-text p {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
+
+/* Tablet */
+@media screen and (max-width: 1024px) {
+  .hero-text h1 {
+    font-size: 3rem;
+  }
+
+  .hero-text p {
+    font-size: 1.2rem;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 768px) {
+  .hero-slide {
+    flex-direction: column;
+    padding: 1.5rem;
+  }
+
+  .hero-text h1 {
+    font-size: 2.2rem;
+  }
+
+  .hero-text p {
+    font-size: 1rem;
+  }
+}

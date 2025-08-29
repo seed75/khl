@@ -1,0 +1,343 @@
+.slide-four {
+  position: relative;            /* so overlay is inside this slide */
+  height: 100vh;
+  background: #0f172a;           /* dark slate */
+  color: #fff;
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+}
+
+.slide-four-content h2 {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  font-family: 'Archivo Black', sans-serif;
+}
+
+/* Grid + perspective for 3D pop */
+.project-grid {
+  display: grid;
+  gap: 70px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  max-width: 1000px;
+  width: 100%;
+  perspective: 800px;
+  overflow: visible;
+  align-items: stretch;
+
+}
+
+/* OUTER wrapper: use button so it's keyboard-focusable */
+.project-card {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  text-align: left;
+  display: grid;       /* lets inner fill height */
+  cursor: pointer;
+}
+
+/* nicer focus ring on cards */
+.project-card { outline: none; }
+.project-card:focus-visible .card-inner {
+  box-shadow: 0 0 0 3px rgba(125, 211, 252, .35), 0 6px 18px rgba(0,0,0,.35);
+}
+
+
+.card-inner {
+  height: 100%;
+  background: #334155;
+  color: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-inner h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.4rem;
+  font-weight: 800;
+  margin: 0 0 8px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+
+.card-inner p {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+
+
+/* your entrance animation */
+.slide-fwd-center {
+  -webkit-animation: slide-fwd-center 0.55s cubic-bezier(0.250,0.460,0.450,0.940);
+          animation: slide-fwd-center 0.55s cubic-bezier(0.250,0.460,0.450,0.940);
+}
+@-webkit-keyframes slide-fwd-center {
+  0%   { -webkit-transform: translateZ(0); transform: translateZ(0); }
+  60%  { -webkit-transform: translateZ(160px); transform: translateZ(160px); }
+  100% { -webkit-transform: translateZ(0); transform: translateZ(0); } /* settle back */
+}
+@keyframes slide-fwd-center {
+  0%   { -webkit-transform: translateZ(0); transform: translateZ(0); }
+  60%  { -webkit-transform: translateZ(160px); transform: translateZ(160px); }
+  100% { -webkit-transform: translateZ(0); transform: translateZ(0); }
+}
+
+/* ---------- Detail overlay (inside this slide) ---------- */
+.detail-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(2px);
+  z-index: 10;
+}
+
+/* ✅ restore proper positioning & centering */
+.detail-layer {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  z-index: 11;
+}
+
+/* Constrain the modal to the viewport */
+.detail-card {
+  width: min(1040px, 95vw);
+  height: min(72vh, 760px);
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr; /* image | text */
+  overflow: hidden;
+  border-radius: 16px;
+  background: #111827;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+}
+
+
+
+/* LEFT column: make it a 2-row grid: [image area | thumbs] */
+.detail-media {
+  display: grid;
+  grid-template-rows: 1fr auto;   /* image takes remaining space, thumbs at bottom */
+  align-items: center;            /* center image vertically in row */
+  justify-items: center;          /* center image horizontally in row */
+  padding: 12px;
+  background: #0b1220;
+  overflow: hidden;               /* keep it tidy */
+}
+
+/* Center the image and show full picture without crop */
+.detail-media img,
+.detail-placeholder {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;            /* show entire image */
+  object-position: center;
+}
+
+/* Thumbnails row sits at the bottom, not overlayed */
+.thumbs {
+  align-self: end;                /* use the second grid row */
+  justify-self: center;
+  display: flex;
+  gap: 8px;
+  padding-top: 12px;              /* small gap above thumbs */
+}
+
+.thumb {
+  width: 64px;
+  height: 44px;
+  border: 0;
+  padding: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  opacity: 0.8;
+  background: #111;
+}
+.thumb:hover,
+.thumb.active { opacity: 1; }
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;              /* tiny thumbs can crop */
+}
+
+/* ✅ Make the RIGHT column the single scroll container */
+.detail-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;          /* allows flex child to shrink */
+  overflow: auto;         /* scroll here when content is long */
+}
+/* remove inner scrollbars */
+.detail-desc,
+.cs-section,
+.stack { overflow: visible; }
+
+/* keep footer pinned to bottom */
+.detail-actions { margin-top: auto; }
+
+/* Mobile: stack, keep height capped */
+@media (max-width: 900px) {
+  .detail-card {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;   /* image | text(scrolls) */
+  }
+  .detail-media { aspect-ratio: 16 / 9; height: auto; }
+  .detail-body  { overflow: auto; }
+}
+
+.stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.stack li {
+  background: #1f2937;
+  color: #cbd5e1;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+
+.detail-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.detail-actions .ghost {
+  background: transparent;
+  color: #e5e7eb;
+  border: 1px solid #334155;
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.detail-actions .ghost:hover { background: #111827; }
+
+/* responsive */
+@media (max-width: 900px) {
+  .detail-card {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- Case study layout on the overlay --- */
+.cs-grid {
+  grid-template-columns: 1.1fr 0.9fr; /* media/demo | text sections */
+}
+
+@media (max-width: 900px) {
+  .cs-grid { grid-template-columns: 1fr; }
+}
+
+/* video wrapper (16:9) */
+.cs-video {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin-top: 12px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #0b1220;
+}
+.cs-video iframe {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  border: 0;
+}
+
+.cs-section { margin: 12px 0; }
+.cs-section h4 {
+  margin: 0 0 6px;
+  font-size: 0.95rem;
+  letter-spacing: .02em;
+  opacity: .9;
+}
+.cs-section.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.badges {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  padding: 0; margin: 0; list-style: none;
+}
+.badges li {
+  background: #1f2937; color: #cbd5e1;
+  padding: 6px 10px; border-radius: 999px; font-size: 0.85rem;
+}
+
+.dots, .checks { margin: 0; padding-left: 18px; }
+.checks li { list-style: "✓  "; }
+.dots li { list-style: disc; }
+
+/* CTA buttons in footer */
+.detail-actions .cta {
+  text-decoration: none;
+  border: 1px solid #334155;
+  padding: 8px 14px; border-radius: 10px;
+  color: #e5e7eb; background: #0b1220;
+}
+.detail-actions .cta:hover { background: #111827; }
+
+/* --- mobile-friendly projects grid --- */
+
+/* Tweak the base: allow the grid to clip horizontal overflow */
+.project-grid {
+  overflow-x: clip;                 /* prevents side bleed on narrow screens */
+}
+
+/* <= 960px: clean 2 columns */
+@media (max-width: 960px) {
+  .slide-four { padding: 48px 16px; }
+  .slide-four-content h2 { font-size: 2.4rem; margin-bottom: 1.4rem; }
+
+  .project-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));  /* exactly 2 cols */
+    gap: 24px;
+    max-width: 800px;                                   /* keep it tight */
+    margin: 0 auto;
+  }
+}
+
+/* <= 640px: single column, full-width cards */
+@media (max-width: 640px) {
+  .slide-four { padding: 36px 12px; }
+  .slide-four-content h2 { font-size: 2rem; margin-bottom: 1rem; }
+
+  .project-grid {
+    grid-template-columns: 1fr;        /* ✅ one column */
+    gap: 16px;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .project-card { width: 100%; }       /* ensure items stretch */
+  .card-inner { padding: 16px; border-radius: 10px; }
+  .card-inner h3 { font-size: 1rem; margin-bottom: 8px; }
+  .card-inner p { font-size: 0.95rem; }
+}
